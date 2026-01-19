@@ -9,8 +9,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0e27;
-  color: #ffffff;
+  background: linear-gradient(to bottom, #f8fafc 0%, #f1f5f9 100%);
+  color: #1e293b;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(to bottom, #0f172a 0%, #1e293b 100%);
+    color: #f1f5f9;
+  }
 }
 
 code {

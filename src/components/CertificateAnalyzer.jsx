@@ -82,14 +82,16 @@ function CertificateAnalyzer() {
     return (
       <div className="relative inline-block">
         <span
-          className="text-cyber-blue cursor-help ml-1"
+          className="text-primary cursor-help ml-1.5 text-sm"
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
         >
-          ℹ️
+          <svg className="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </span>
         {showTooltip && (
-          <div className="absolute bottom-full left-0 mb-2 w-64 p-2 bg-gray-800 text-xs text-white rounded-lg shadow-lg z-10 border border-cyber-blue">
+          <div className="absolute bottom-full left-0 mb-2 w-64 p-3 bg-slate-900 dark:bg-slate-800 text-xs text-slate-100 rounded-lg shadow-xl z-10 border border-slate-700">
             {info}
           </div>
         )}
@@ -99,26 +101,26 @@ function CertificateAnalyzer() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="bg-dark-card rounded-lg p-6 shadow-lg border border-cyber-blue/20">
-        <h2 className="text-2xl font-bold mb-6 text-cyber-blue">
-          İnteraktif X.509 Sertifika Analiz Aracı
+      <div className="bg-card dark:bg-card-dark rounded-xl p-8 shadow-lg border border-border dark:border-border-dark">
+        <h2 className="text-2xl font-semibold mb-8 text-slate-900 dark:text-slate-50">
+          X.509 Sertifika Analiz Aracı
         </h2>
 
         {/* Sertifika Girişi */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
             Sertifika Metni (PEM veya CRT formatında)
           </label>
           <textarea
             value={certificateText}
             onChange={(e) => setCertificateText(e.target.value)}
             placeholder="-----BEGIN CERTIFICATE-----&#10;...&#10;-----END CERTIFICATE-----"
-            className="w-full bg-gray-800 border border-gray-600 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-cyber-blue focus:ring-1 focus:ring-cyber-blue font-mono text-sm"
+            className="w-full bg-white dark:bg-slate-800 border border-border dark:border-border-dark rounded-lg p-4 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-mono text-sm transition-all"
             rows="8"
           />
           <button
             onClick={parseCertificate}
-            className="mt-4 w-full py-3 px-4 bg-cyber-blue text-dark-bg rounded-lg font-medium hover:bg-cyber-blue/80 transition-all"
+            className="mt-4 w-full py-3 px-4 bg-primary hover:bg-primary-dark text-white rounded-lg font-medium transition-all duration-200 shadow-sm"
           >
             Sertifikayı Analiz Et
           </button>
@@ -126,7 +128,7 @@ function CertificateAnalyzer() {
 
         {/* Hata Mesajı */}
         {error && (
-          <div className="mb-6 p-4 bg-red-900/30 border border-red-500 rounded-lg text-red-300">
+          <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300">
             {error}
           </div>
         )}
@@ -135,59 +137,59 @@ function CertificateAnalyzer() {
         {certificateData && (
           <div className="space-y-4">
             {/* Issuer */}
-            <div className="bg-gray-800 rounded-lg p-5 border border-cyber-green/30">
-              <h3 className="text-lg font-bold text-cyber-green mb-3 flex items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-border dark:border-border-dark">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4 flex items-center">
                 Yayımcı (Issuer)
                 <InfoTooltip info="Sertifika Makamı (CA) - Bu sertifikayı imzalayan otorite. Güven zincirinin üst seviyesini temsil eder." />
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {Object.entries(certificateData.issuer).map(([key, value]) => (
-                  <div key={key} className="flex">
-                    <span className="text-gray-400 w-32 capitalize">{key}:</span>
-                    <span className="text-white">{value}</span>
+                  <div key={key} className="flex items-start">
+                    <span className="text-slate-500 dark:text-slate-400 w-32 capitalize text-sm font-medium">{key}:</span>
+                    <span className="text-slate-900 dark:text-slate-100 flex-1">{value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Subject */}
-            <div className="bg-gray-800 rounded-lg p-5 border border-cyber-green/30">
-              <h3 className="text-lg font-bold text-cyber-green mb-3 flex items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-border dark:border-border-dark">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4 flex items-center">
                 Sahip (Subject)
                 <InfoTooltip info="Sertifikanın sahibi - Bu sertifikanın kim için veya hangi domain için verildiğini gösterir." />
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-2.5">
                 {Object.entries(certificateData.subject).map(([key, value]) => (
-                  <div key={key} className="flex">
-                    <span className="text-gray-400 w-32 capitalize">{key}:</span>
-                    <span className="text-white">{value}</span>
+                  <div key={key} className="flex items-start">
+                    <span className="text-slate-500 dark:text-slate-400 w-32 capitalize text-sm font-medium">{key}:</span>
+                    <span className="text-slate-900 dark:text-slate-100 flex-1">{value}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Geçerlilik Süresi */}
-            <div className="bg-gray-800 rounded-lg p-5 border border-cyber-blue/30">
-              <h3 className="text-lg font-bold text-cyber-blue mb-3 flex items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-border dark:border-border-dark">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4 flex items-center">
                 Geçerlilik Süresi
                 <InfoTooltip info="Sertifikanın geçerli olduğu tarih aralığı. Bu tarihler dışında sertifika geçersiz sayılır." />
               </h3>
-              <div className="space-y-2">
-                <div className="flex">
-                  <span className="text-gray-400 w-40">Geçerlilik Başlangıcı:</span>
-                  <span className="text-white">{formatDate(certificateData.validity.notBefore)}</span>
+              <div className="space-y-2.5">
+                <div className="flex items-start">
+                  <span className="text-slate-500 dark:text-slate-400 w-40 text-sm font-medium">Geçerlilik Başlangıcı:</span>
+                  <span className="text-slate-900 dark:text-slate-100 flex-1">{formatDate(certificateData.validity.notBefore)}</span>
                 </div>
-                <div className="flex">
-                  <span className="text-gray-400 w-40">Geçerlilik Bitişi:</span>
-                  <span className="text-white">{formatDate(certificateData.validity.notAfter)}</span>
+                <div className="flex items-start">
+                  <span className="text-slate-500 dark:text-slate-400 w-40 text-sm font-medium">Geçerlilik Bitişi:</span>
+                  <span className="text-slate-900 dark:text-slate-100 flex-1">{formatDate(certificateData.validity.notAfter)}</span>
                 </div>
                 {certificateData.validity.notAfter && (
-                  <div className="mt-3 pt-3 border-t border-gray-700">
-                    <span className="text-gray-400">Durum: </span>
+                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 dark:text-slate-400 text-sm font-medium">Durum: </span>
                     {new Date(certificateData.validity.notAfter) > new Date() ? (
-                      <span className="text-cyber-green font-medium">Geçerli</span>
+                      <span className="text-accent font-semibold">Geçerli</span>
                     ) : (
-                      <span className="text-red-400 font-medium">Süresi Dolmuş</span>
+                      <span className="text-red-500 font-semibold">Süresi Dolmuş</span>
                     )}
                   </div>
                 )}
@@ -195,31 +197,31 @@ function CertificateAnalyzer() {
             </div>
 
             {/* Seri Numarası */}
-            <div className="bg-gray-800 rounded-lg p-5 border border-cyber-blue/30">
-              <h3 className="text-lg font-bold text-cyber-blue mb-3 flex items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-border dark:border-border-dark">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4 flex items-center">
                 Seri Numarası
                 <InfoTooltip info="Sertifikanın benzersiz kimlik numarası. Her sertifika için CA tarafından atanan özel bir numaradır." />
               </h3>
-              <div className="font-mono text-cyber-green break-all">
+              <div className="font-mono text-slate-700 dark:text-slate-300 break-all text-sm bg-white dark:bg-slate-900 p-3 rounded border border-border dark:border-border-dark">
                 {certificateData.serialNumber}
               </div>
             </div>
 
             {/* Açık Anahtar Algoritması */}
-            <div className="bg-gray-800 rounded-lg p-5 border border-cyber-green/30">
-              <h3 className="text-lg font-bold text-cyber-green mb-3 flex items-center">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 border border-border dark:border-border-dark">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-4 flex items-center">
                 Açık Anahtar Algoritması
                 <InfoTooltip info="Sertifikada kullanılan şifreleme algoritması ve anahtar boyutu. RSA, ECDSA gibi algoritmalar kullanılabilir." />
               </h3>
-              <div className="space-y-2">
-                <div className="flex">
-                  <span className="text-gray-400 w-40">Algoritma:</span>
-                  <span className="text-white font-mono">{certificateData.algorithm}</span>
+              <div className="space-y-2.5">
+                <div className="flex items-start">
+                  <span className="text-slate-500 dark:text-slate-400 w-40 text-sm font-medium">Algoritma:</span>
+                  <span className="text-slate-900 dark:text-slate-100 font-mono">{certificateData.algorithm}</span>
                 </div>
                 {certificateData.keySize && (
-                  <div className="flex">
-                    <span className="text-gray-400 w-40">Anahtar Boyutu:</span>
-                    <span className="text-white">{certificateData.keySize} bit</span>
+                  <div className="flex items-start">
+                    <span className="text-slate-500 dark:text-slate-400 w-40 text-sm font-medium">Anahtar Boyutu:</span>
+                    <span className="text-slate-900 dark:text-slate-100">{certificateData.keySize} bit</span>
                   </div>
                 )}
               </div>
@@ -229,12 +231,12 @@ function CertificateAnalyzer() {
 
         {/* Örnek Sertifika */}
         {!certificateData && !error && (
-          <div className="mt-6 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
-            <p className="text-sm text-gray-400 mb-2">
-              <strong className="text-gray-300">İpucu:</strong> PEM formatında bir sertifika yapıştırın. 
+          <div className="mt-6 p-5 bg-slate-50 dark:bg-slate-800/30 rounded-lg border border-border dark:border-border-dark">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+              <strong className="text-slate-900 dark:text-slate-100">İpucu:</strong> PEM formatında bir sertifika yapıştırın. 
               Örnek format:
             </p>
-            <pre className="text-xs text-gray-500 font-mono mt-2">
+            <pre className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-2 bg-white dark:bg-slate-900 p-3 rounded border border-border dark:border-border-dark">
 {`-----BEGIN CERTIFICATE-----
 MIIDXTCCAkWgAwIBAgIJAK...
 ...

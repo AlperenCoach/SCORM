@@ -6,36 +6,38 @@ function App() {
   const [activeTab, setActiveTab] = useState('crypto')
 
   return (
-    <div className="min-h-screen bg-dark-bg">
-      <div className="container mx-auto px-4 py-8">
-        <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-cyber-green to-cyber-blue bg-clip-text text-transparent">
-            SCORM Kriptografi Araçları
+    <div className="min-h-screen bg-bg dark:bg-bg-dark transition-colors">
+      <div className="container mx-auto px-4 py-12 max-w-6xl">
+        <header className="mb-12 text-center">
+          <h1 className="text-5xl font-semibold mb-3 text-slate-900 dark:text-slate-50">
+            Kriptografi Araçları
           </h1>
-          <p className="text-gray-400">Gelişmiş Kriptografi ve Sertifika Analiz Araçları</p>
+          <p className="text-slate-600 dark:text-slate-400 text-lg">
+            Şifreleme simülasyonu ve sertifika analiz araçları
+          </p>
         </header>
 
-        <div className="flex justify-center mb-8">
-          <div className="bg-dark-card rounded-lg p-1 flex gap-2">
+        <div className="flex justify-center mb-10">
+          <div className="bg-card dark:bg-card-dark rounded-xl p-1.5 shadow-sm border border-border dark:border-border-dark inline-flex gap-2">
             <button
               onClick={() => setActiveTab('crypto')}
-              className={`px-6 py-2 rounded-md font-medium transition-all ${
+              className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
                 activeTab === 'crypto'
-                  ? 'bg-cyber-green text-dark-bg'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
-              Kriptografi Simülatörü
+              Şifreleme Simülatörü
             </button>
             <button
               onClick={() => setActiveTab('certificate')}
-              className={`px-6 py-2 rounded-md font-medium transition-all ${
+              className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
                 activeTab === 'certificate'
-                  ? 'bg-cyber-green text-dark-bg'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
               }`}
             >
-              X.509 Sertifika Analizi
+              Sertifika Analizi
             </button>
           </div>
         </div>
